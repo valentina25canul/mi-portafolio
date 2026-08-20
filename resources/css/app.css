@@ -1,0 +1,201 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    
+}
+
+.bg-new {
+    background-image: url("../images/fondo1.jpg");
+    /*background-repeat: no-repeat;*/
+    background-position: center;
+    
+    /* 1. Ajuste base para celulares (Pantallas pequeñas) */
+   /* background-size: cover;*/
+   /* background-attachment: scroll; /* Cambiamos a scroll para evitar bugs en móviles */
+}
+
+
+.title{
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 2.5rem; /* Tamaño de fuente grande */
+    font-weight: bold; /* Negrita */
+    color: #1a202c; /* Color de texto oscuro */
+    text-align: center; /* Centrado del texto */
+    margin-bottom: 1rem; /* Espaciado inferior */
+}
+
+.subtitle{
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 1.5rem; /* Tamaño de fuente grande */
+    font-weight: bold; /* Negrita */
+    color: #080f1f; /* Color de texto oscuro */
+    text-align: center; /* Centrado del texto */
+    margin-bottom: 1rem; /* Espaciado inferior */
+}
+
+.standar{
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 1.5rem; /* Tamaño de fuente grande */
+    color: #1a202c; /* Color de texto oscuro */
+    text-align:left; /* Centrado del texto */
+    margin-bottom: 1rem; /* Espaciado inferior */
+}
+
+.principal{
+    background-color: hsla(0, 0%, 100%, 0.5); /* Fondo blanco con opacidad */
+    padding: 2rem; /* Espaciado interno */
+    border-radius: 0.5rem; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra interna */
+    backdrop-filter: blur(10px); /* Efecto de desenfoque */
+    margin-left: 80px;
+    margin-right: 80px;
+    margin-top: 50px;
+    
+}
+
+.white {
+  display: flex;                  /* flex */
+  flex-direction: row;            /* flex-row */
+  justify-content: center;        /* justify-center */
+  font-size: 3.75rem;             /* text-6xl (60px) */
+  line-height: 1;                 /* text-6xl ajusta la altura de línea */
+  background-color: hsl(0, 0%, 100%); /* bg-white */
+  margin-left: 200px;              /* ml-[56px] */
+  margin-right: 200px;             /* ml-[56px] */
+  margin-top: 50px;
+  margin-bottom: 100px;              /* mb-4 */
+  padding: 0.5rem;                /* p-2 es 8px / 0.5rem (ojo: 2rem es p-8) */
+  border-radius: 0.5rem;          /* rounded-lg */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 
+              0 4px 6px -4px rgba(0, 0, 0, 0.1); /* shadow-lg */
+}
+
+.bg-whiteopacity{
+    background-color: hsla(0, 0%, 100%, 0.5); /* Fondo blanco con opacidad */
+    padding: 2rem; /* Espaciado interno */
+    border-radius: 0.5rem; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra interna */
+    backdrop-filter: blur(10px); /* Efecto de desenfoque */
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-top: 100px;
+    
+}
+
+.bg-whiteopacity2{
+    background-color: hsla(0, 18%, 93%, 0.668); /* Fondo blanco con opacidad */
+    border-radius: 0.5rem; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra interna */
+    backdrop-filter: blur(10px); /* Efecto de desenfoque */
+    /* --- PROPIEDADES CLAVE PARA EL CARRUSEL --- */
+    &:hover {
+        transform: scale(1.05); /* Efecto de zoom al pasar el mouse */
+        transition: transform 0.3s ease-in-out; /* Transición suave */
+    }
+}
+
+.bg-whiteflatt {
+  display: flex;                  /* flex */
+  flex-direction: row;            /* flex-row */
+  justify-content: center;        /* justify-center */
+  font-size: 3.75rem;             /* text-6xl (60px) */
+  line-height: 1;                 /* text-6xl ajusta la altura de línea */
+  background-color: hsl(0, 0%, 100%); /* bg-white */
+  margin-left: 550px;              /* ml-[56px] */
+  margin-right: 550px;             /* ml-[56px] */
+  margin-top: 100px;
+  margin-bottom: 100px;              /* mb-4 */
+  padding: 0.5rem;                /* p-2 es 8px / 0.5rem (ojo: 2rem es p-8) */
+  border-radius: 0.5rem;          /* rounded-lg */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 
+              0 4px 6px -4px rgba(0, 0, 0, 0.1); /* shadow-lg */
+}
+/* Opcional: Ajuste para que las imágenes no se deformen y mantengan un tamaño uniforme */
+.bg-whiteopacity2{
+    flex:0 0 500px;
+    scroll-snap-align:center;
+}
+
+.imgsize{
+    width: 500px;
+    height:600px;
+}
+
+.order{
+    display:flex;
+    gap:24px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    scroll-behavior:smooth;
+
+    width:100%;
+    max-width:1900px;
+    margin:none;
+    padding:200px;
+}
+/* Ocultar barra de scroll en Webkit (Chrome, Safari, Edge) */
+.order::-webkit-scrollbar {
+  display: none;
+}
+
+/* Ocultar barra de scroll en Firefox y otros */
+.order {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.bento-grid {
+    display: grid;
+    /* Define 2 columnas de igual tamaño */
+    grid-template-columns: repeat(2, 1fr); 
+    /* Espacio entre los bloques */
+    gap: 20px; 
+    
+    /* Estilos del contenedor principal */
+    
+    padding: 30px;
+    border-radius: 12px;
+}
+
+.item {
+    border-radius: 12px;
+    min-height: 200px; /* Ajusta la altura a tus necesidades */
+
+}
+
+/* 1. Tarjeta superior: Abarca las 2 columnas (de la línea 1 a la 3) */
+.item-1 {
+    grid-column: span 2;
+
+}
+
+/* 2. Tarjeta izquierda: Abarca 2 filas hacia abajo */
+.item-2 {
+    grid-row: span 2;
+}
+
+.img-size {
+    width: 1000px;
+    height: 850px;
+}
+
+.tarjeta-proyecto {
+    @apply rounded-xl shadow-md;
+}
+.gridlow {
+    display:flex;
+    /* Define 2 columnas de igual tamaño */
+    grid-template-columns: repeat(2, 1fr); 
+    /* Espacio entre los bloques */
+    gap: 50px; 
+    
+    /* Estilos del contenedor principal */
+    padding: 20px;
+    margin-top:50px;
+    border-radius: 12px;
+}
