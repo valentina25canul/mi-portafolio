@@ -32,12 +32,14 @@ ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/conf-available/*.conf
 
-# 8. Instalar dependencias de PHP omitiendo requerimientos estrictos de plataforma
+# 8. Instalar dependencias de PHP
 ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN composer install --no-dev --no-scripts --ignore-platform-reqs --optimize-autoloader
 
-# 9. Instalar dependencias de Node y compilar assets
-RUN npm install
+# 9. Instalar TODAS las dependencias de Node (incluyendo devDependencies) y compilar
+ENV NODE_ENV=development
+RUN npm install --include=dev
+ENV NODE_OPTIONS="--max-old-space-size=512"
 RUN npm run build
 
 # 10. Permisos de carpetas de Laravel
