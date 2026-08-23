@@ -1,7 +1,7 @@
 # 1. Imagen base con PHP 8.3 y Apache
 FROM php:8.3-apache
 
-# 2. Instalar dependencias del sistema y extensiones de PHP requeridas por Laravel
+# 2. Instalar dependencias del sistema y extensiones de PHP
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
@@ -25,14 +25,14 @@ WORKDIR /var/www/html
 # 6. Copiar los archivos del proyecto
 COPY . .
 
-# 7. Cambiar el DocumentRoot de Apache a la carpeta /public de Laravel
+# 7. Cambiar el DocumentRoot de Apache a la carpeta /public
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/conf-available/*.conf
 
-# 8. Instalar dependencias de PHP para producción
+# 8. Instalar dependencias sin ejecutar scripts de Laravel durante el build
 ENV COMPOSER_ALLOW_SUPERUSER=1
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --no-scripts --optimize-autoloader
 
 # 9. Asignar permisos correctos a storage y bootstrap/cache
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
