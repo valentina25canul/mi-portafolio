@@ -1,7 +1,16 @@
-# 1. Imagen base con PHP 8.3 y Apache
+# Stage 1: Instalar dependencias de PHP con Composer oficial
+FROM composer:2 AS composer_stage
+WORKDIR /app
+COPY composer.json composer.lock* ./
+RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist
+
+COPY . .
+RUN composer dump-autoload --optimize --no-scripts
+
+# Stage 2: Servidor Apache con PHP 8.3
 FROM php:8.3-apache
 
-# 2. Instalar dependencias del sistema y extensiones de PHP
+# Instalar dependencias del sistema y extensiones necesarias de PHP
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
@@ -11,30 +20,21 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     zip \
     curl \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# 3. Habilitar mod_rewrite para Apache
+# Configurar Apache
 RUN a2enmod rewrite
-
-# 4. Instalar Composer desde la imagen oficial
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-# 5. Establecer directorio de trabajo
-WORKDIR /var/www/html
-
-# 6. Copiar los archivos del proyecto
-COPY . .
-
-# 7. Cambiar el DocumentRoot de Apache a la carpeta /public
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/conf-available/*.conf
 
-# 8. Instalar dependencias sin ejecutar scripts de Laravel durante el build
-ENV COMPOSER_ALLOW_SUPERUSER=1
-RUN composer install --no-dev --no-scripts --optimize-autoloader
+WORKDIR /var/www/html
 
-# 9. Asignar permisos correctos a storage y bootstrap/cache
+# Copiar aplicación y vendor optimizado desde la primera etapa
+COPY --from=composer_stage /app /var/www/html
+
+# Ajustar permisos
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
