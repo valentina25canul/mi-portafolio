@@ -1,15 +1,16 @@
-# Stage 1: Instalar dependencias de PHP con Composer oficial
+# Stage 1: Instalar dependencias con Composer en PHP 8.4
 FROM composer:2 AS composer_stage
 WORKDIR /app
 COPY composer.json composer.lock* ./
-RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist
+RUN composer install --no-dev --no-scripts --no-autoloader --ignore-platform-reqs --prefer-dist
 
 COPY . .
-RUN composer dump-autoload --optimize --no-scripts --no-check-platform
-# Stage 2: Servidor Apache con PHP 8.3
-FROM php:8.3-apache
+RUN composer dump-autoload --optimize --no-scripts
 
-# Instalar dependencias del sistema y extensiones necesarias de PHP
+# Stage 2: Servidor Apache con PHP 8.4
+FROM php:8.4-apache
+
+# Instalar dependencias del sistema y extensiones de PHP
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
@@ -30,7 +31,7 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/conf-ava
 
 WORKDIR /var/www/html
 
-# Copiar aplicación y vendor optimizado desde la primera etapa
+# Copiar aplicación y vendor desde la primera etapa
 COPY --from=composer_stage /app /var/www/html
 
 # Ajustar permisos
