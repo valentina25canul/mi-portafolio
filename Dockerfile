@@ -29,21 +29,22 @@ ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/conf-available/*.conf
 
-# Ajustar Apache para que escuche en el puerto que asigna Render ($PORT) o 80 por defecto
-RUN sed -i 's/80/${PORT}/g' /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf
-
 WORKDIR /var/www/html
 
 # Copiar aplicación y vendor desde la primera etapa
 COPY --from=composer_stage /app /var/www/html
 
 # Permisos de carpetas de almacenamiento
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
-RUN chmod -R 777 /var/www/html/storage/framework/sessions
-RUN chmod -R 777 /var/www/html/storage/framework/views
-RUN chmod -R 777 /var/www/html/storage/framework/cache
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache \
+    && chmod -R 777 /var/www/html/storage/framework/sessions \
+    && chmod -R 777 /var/www/html/storage/framework/views \
+    && chmod -R 777 /var/www/html/storage/framework/cache
 
-EXPOSE 80
+# Copiar y dar permisos al script de entrada dinámico
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-CMD ["apache2-foreground"]
+EXPOSE 10000
+
+ENTRYPOINT ["/entrypoint.sh"]
