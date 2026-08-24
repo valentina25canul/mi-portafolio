@@ -5,8 +5,7 @@ COPY composer.json composer.lock* ./
 RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist
 
 COPY . .
-RUN composer dump-autoload --optimize --no-scripts
-
+RUN composer dump-autoload --optimize --no-scripts --no-check-platform
 # Stage 2: Servidor Apache con PHP 8.3
 FROM php:8.3-apache
 
