@@ -34,12 +34,13 @@ WORKDIR /var/www/html
 # Copiar aplicación y vendor desde la primera etapa
 COPY --from=composer_stage /app /var/www/html
 
-# Ajustar permisos
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
-    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
-    && chmod -R 777 /var/www/html/storage/framework/sessions \
-    && chmod -R 777 /var/www/html/storage/framework/views \
-    && chmod -R 777 /var/www/html/storage/framework/cache
+# Permisos explícitos para storage y cache
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chmod -R 777 /var/www/html/storage/framework/sessions
+RUN chmod -R 777 /var/www/html/storage/framework/views
+RUN chmod -R 777 /var/www/html/storage/framework/cache
+
 EXPOSE 80
 
 CMD ["apache2-foreground"]
