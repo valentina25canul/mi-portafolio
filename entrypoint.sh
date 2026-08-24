@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 set -e
 
-# Usar el puerto que inyecta Render en tiempo de ejecución (o 80 por defecto)
-PORT="${PORT:-80}"
+# Asignar puerto: usar $PORT de Render o forzar 10000 como fallback
+TARGET_PORT="${PORT:-10000}"
 
-echo "Configurando Apache para escuchar en el puerto: $PORT"
+echo "Iniciando Apache en el puerto: $TARGET_PORT"
 
-# Reemplazar el puerto 80 por el puerto dinámico de Render
-sed -i "s/80/${PORT}/g" /etc/apache2/sites-available/000-default.conf
-sed -i "s/80/${PORT}/g" /etc/apache2/ports.conf
+# Modificar ambos archivos de configuracion de Apache
+sed -i "s/Listen 80/Listen ${TARGET_PORT}/g" /etc/apache2/ports.conf
+sed -i "s/<VirtualHost \*:80>/<VirtualHost \*:${TARGET_PORT}>/g" /etc/apache2/sites-available/000-default.conf
 
-# Iniciar Apache
+# Iniciar Apache en primer plano
 exec apache2-foreground
