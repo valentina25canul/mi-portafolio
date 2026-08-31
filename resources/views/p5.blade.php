@@ -8,32 +8,30 @@
     @vite('resources/css/app.css')
 </head>
 <body class="bg-new">
-    <header class="w-full bg-[#ece7e7] sticky top-0 z-50 px-6 py-4">
+    <!-- HEADER / NAVEGACIÓN -->
+    <header class="w-full bg-[#ece7e7]/90 backdrop-blur-md sticky top-0 z-50 px-4 sm:px-6 py-4 border-b border-slate-200/50">
         <div class="max-w-6xl mx-auto flex items-center justify-between">
-            <!-- 2. NAVEGACIÓN (Centro - Se oculta en celulares) -->
-            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-700">
-                <a href="/" class="hover:text-indigo-400 transition">Sobre mí</a>
-                <a href="https://www.linkedin.com/in/cinthia-canul-canche-2b1a84377" class="hover:text-indigo-400 transition">Linkedin</a>
+            <nav class="flex items-center gap-6 sm:gap-8 text-sm font-medium text-slate-700">
+                <a href="/" class="hover:text-indigo-600 transition">Sobre mí</a>
+                <a href="https://www.linkedin.com/in/cinthia-canul-canche-2b1a84377" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-600 transition">LinkedIn</a>
             </nav>
 
-            <!-- 3. ACCIONES Y SOCIAL (Derecha) -->
             <div class="flex items-center gap-4">
-            <!-- Icono GitHub -->
-                <a href="https://github.com/tu-usuario" target="_blank" class="text-slate-400 hover:text-white transition">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><!-- SVG GitHub --></svg>
+                <a href="https://github.com/tu-usuario" target="_blank" rel="noopener noreferrer" class="text-slate-600 hover:text-slate-900 transition" aria-label="GitHub">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                    </svg>
                 </a>
-
             </div>
-
         </div>
     </header>
-    <main>
-        <div id="about">
-            <div class="white">
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-12 sm:space-y-16">
+        <div id="about" class="space-y-8">
+            <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-lg border border-slate-100 text-center">
                 <h1 class="title">Diseño de pagina web</h1>
             </div>
-            <div class="principal">
-                <p class="standar">
+            <div class="bg-white/70 backdrop-blur-md p-6 sm:p-8 rounded-2xl shadow-md space-y-4 text-slate-700 leading-relaxed text-base sm:text-lg">
+                <p >
                     Como parte de un proyecto escolar debía crear un sito web basado en un objetivo social
                     ademas de ser interesante al usuario, quería ir más allá de las plantillas web tradicionales. 
                     Mi visión era diseñar un espacio digital que no solo presentara información, sino que cobrara vida 
@@ -41,7 +39,7 @@
                     interactividad 3D y una experiencia de usuario fluida, todo mientras mantenía una estética limpia 
                     y amigable.
                 </p><br>
-                <p class="standar">
+                <p >
                     La elección de Tailwind CSS me permitió construir un diseño limpio, 
                     con una paleta de colores suaves y una jerarquía de información clara. 
                     Esto facilita la lectura del contenido, como las historias de los perritos en el catálogo, 
@@ -50,7 +48,7 @@
                     activa del usuario en el sitio, aumentando el tiempo de permanencia y creando una interacción 
                     más dinámica y entretenida.
                 </p><br>
-                <p class="standar">
+                <p >
                     Para enganchar al usuario en el perfil del perrito integré un banner con un perrito 3D 
                     animado y elementos flotantes interactivos creados con Spline. Demostré que es posible integrar 
                     tecnologías de vanguardia como el 3D en la web sin comprometer la usabilidad ni la conexión 
